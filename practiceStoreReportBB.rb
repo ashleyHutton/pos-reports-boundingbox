@@ -6,15 +6,15 @@ Prawn::Document::generate("generatedPracticeReport.pdf") do
 
 	stroke_axis
 
-	widthOfQuestionNumber = 25
-	widthOfShortQuestion = 140
-	widthOfCheckbox = 25
-	widthOfShortAnswer = 310
+	widthOfQuestionNumber = 16
+	widthOfShortQuestion = 192
+	widthOfCheckbox = 18
+	widthOfShortAnswer = 324
 
 	xPosOfQuestionNumber = 0
-	xPosOfShortQuestion = 25
-	xPosOfCheckbox = 165
-	xPosOfShortAnswer = 190
+	xPosOfShortQuestion = 16
+	xPosOfCheckbox = 209
+	xPosOfShortAnswer = 227
 
 	# would we potentially make all these bounding boxes separate functions and call as the data is passed in?
 
@@ -59,7 +59,68 @@ Prawn::Document::generate("generatedPracticeReport.pdf") do
 			# question number
 			bounding_box([xPosOfQuestionNumber,0], :width => widthOfQuestionNumber) do
 
-					text "Q1"
+					text "1"
+					stroke_bounds
+
+					# move cusor so all bounding boxes are in the same row
+					if (bounds.height != cursorPos) 
+						cursorPos = bounds.height
+					end
+
+			end
+
+			move_cursor_to(cursorPos)
+
+			# question
+			bounding_box([xPosOfShortQuestion, cursorPos], :width => widthOfShortQuestion) do
+
+					text "This is a basic question. What do we do if this question is realllllllllllllly long?"
+					stroke_bounds
+
+					# move cusor so all bounding boxes are in the same row
+					if (bounds.height != cursorPos) 
+						cursorPos = bounds.height
+					end
+
+			end
+
+			move_cursor_to(cursorPos)
+
+			# checkbox
+			bounding_box([xPosOfCheckbox, cursorPos], :width => widthOfCheckbox) do
+
+					text ""
+					stroke_bounds
+
+					# move cusor so all bounding boxes are in the same row
+					if (bounds.height != cursorPos) 
+						cursorPos = bounds.height
+					end
+
+			end
+
+			move_cursor_to(cursorPos)
+
+			# answer
+			bounding_box([xPosOfShortAnswer, cursorPos], :width => widthOfShortAnswer) do
+
+					text "This is an answer to a question"
+					stroke_bounds
+			end
+
+			stroke_bounds
+
+		end
+
+		# checkbox question
+		bounding_box([0, cursor], :width => 550) do
+
+						cursorPos = cursor
+
+			# question number
+			bounding_box([xPosOfQuestionNumber,0], :width => widthOfQuestionNumber) do
+
+					text "1"
 					stroke_bounds
 
 					# move cusor so all bounding boxes are in the same row
@@ -71,7 +132,7 @@ Prawn::Document::generate("generatedPracticeReport.pdf") do
 			# question
 			bounding_box([xPosOfShortQuestion, cursorPos], :width => widthOfShortQuestion) do
 
-					text "This is a question"
+					text "This is a checkbox question"
 					stroke_bounds
 
 			end
@@ -96,6 +157,7 @@ Prawn::Document::generate("generatedPracticeReport.pdf") do
 			end
 
 			stroke_bounds
+
 
 		end
 
