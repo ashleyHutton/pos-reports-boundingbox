@@ -47,7 +47,6 @@ Prawn::Document::generate("generatedPracticeReport.pdf") do
 
 			text "Here is some basic information about this section."
 
-
 			stroke_bounds
 
 		end
@@ -55,29 +54,42 @@ Prawn::Document::generate("generatedPracticeReport.pdf") do
 		# basic question
 		bounding_box([0,cursor], :width => 550) do
 
+			cursorPos = cursor
+
 			# question number
-			bounding_box([xPosOfQuestionNumber,50], :width => widthOfQuestionNumber) do
+			bounding_box([xPosOfQuestionNumber,0], :width => widthOfQuestionNumber) do
 
 					text "Q1"
 					stroke_bounds
+
+					# move cusor so all bounding boxes are in the same row
+					cursorPos += bounds.height
 			end
 
+			move_cursor_to(cursorPos)
+
 			# question
-			bounding_box([xPosOfShortQuestion, 0], :width => widthOfShortQuestion) do
+			bounding_box([xPosOfShortQuestion, cursorPos], :width => widthOfShortQuestion) do
 
 					text "This is a question"
 					stroke_bounds
+
 			end
 
+			move_cursor_to(cursorPos)
+
 			# checkbox
-			bounding_box([xPosOfCheckbox, 0], :width => widthOfCheckbox) do
+			bounding_box([xPosOfCheckbox, cursorPos], :width => widthOfCheckbox) do
 
 					text "@"
 					stroke_bounds
+
 			end
 
+			move_cursor_to(cursorPos)
+
 			# answer
-			bounding_box([xPosOfShortAnswer, 0], :width => widthOfShortAnswer) do
+			bounding_box([xPosOfShortAnswer, cursorPos], :width => widthOfShortAnswer) do
 
 					text "This is an answer to a question"
 					stroke_bounds
@@ -90,6 +102,13 @@ Prawn::Document::generate("generatedPracticeReport.pdf") do
 		stroke_bounds
 	end
 end
+
+
+
+
+
+
+
 
 
 
